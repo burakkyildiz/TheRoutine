@@ -127,7 +127,7 @@ test("malformed storage is backed up and recovered without crashing", async (con
   assert.match(routineStore.getSnapshot()!.warning!, /recovery copy/);
   actions.toggle(data().items[0].id);
   assert.equal(data().items[0].completed, true);
-  assert.equal(JSON.parse(storage.getItem(STORAGE_KEY)!).version, 1);
+  assert.equal(JSON.parse(storage.getItem(STORAGE_KEY)!).version, 2);
 });
 
 test("storage events update an open tab and later edits preserve the other tab's changes", async (context) => {

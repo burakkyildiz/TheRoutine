@@ -4,7 +4,7 @@ import { useSyncExternalStore } from "react";
 import {
   defaultRoutine, localDateKey, MAX_NAME_LENGTH, millisecondsUntilMidnight,
   parseRoutine, resetForDate, STORAGE_KEY,
-  type RoutineData, type RoutineItem,
+  type ChainTarget, type RoutineData, type RoutineItem,
 } from "./routine.ts";
 
 type Snapshot = { data: RoutineData; warning: string | null } | null;
@@ -130,6 +130,11 @@ export const routineActions = {
   },
   remove(id: string) {
     mutate((items) => items.filter((item) => item.id !== id));
+  },
+  setChainTarget(chainTarget: ChainTarget) {
+    if (!snapshot) return;
+    const current = resetForDate(unsaved ? snapshot.data : read().data, localDateKey());
+    save({ ...current, chainTarget });
   },
   retrySave() {
     if (snapshot) save(resetForDate(snapshot.data, localDateKey()));

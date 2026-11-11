@@ -20,6 +20,7 @@ The Routine, günlük rutinleri işaretlemek için sade, koyu temalı ve mobil u
 
 - Next.js App Router, TypeScript, Tailwind CSS, Lucide ikonları ve yerelde paketlenen Geist ile tek ekran oluşturuldu. Ekranda günün tarihi, ilerleme çubuğu ve tamamlanan rutin sayısı var.
 - İlk açılışta `pray`, `train`, `eat`, `study`, `sleep`, `repeat` gösterilir. Kullanıcı rutin ekleyebilir, adını değiştirebilir, onay vererek silebilir ve tamamlandı işaretini açıp kapatabilir. Rutinlerin sırası korunur. Boş liste, sayfa yenilenince varsayılanlarla yeniden doldurulmaz.
+- Kullanıcı 7, 14, 30 veya 60 günlük bir zincir hedefi seçebilir ya da sonsuz zinciri seçebilir. Günün tüm rutinleri tamamlandığında arayüzde yeni halka animasyonla eklenir; gün değiştiğinde sonuç ve kaçırılan günler zincir geçmişine kaydedilir. Bildirimler bu web sürümünün kapsamı dışındadır; mobil uygulamada ele alınacaktır.
 - Yerel kayıt, gün değişimi, sekmeler arası güncelleme, erişilebilir diyaloglar ve depolama hatasından sonra tekrar kaydetme eklendi.
 - MVP GitHub’a gönderildi; GitHub entegrasyonu kurularak Vercel’de `burakkyildiz/the-routine` projesi oluşturuldu. İlk üretim yayını `main` dalındaki `2bb36fd` commit’inden tamamlandı. Vercel’de Next.js, Node.js 24.x, `npm ci` ve `npm run build` kullanıldı.
 - İlk adres `the-routine-two.vercel.app` idi. Yeni adres projeye eklenip doğrulandı; eski adres kaldırıldı. GitHub’daki **About → Website** bağlantısı da yeni adresle güncellendi.
