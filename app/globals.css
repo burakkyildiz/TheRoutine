@@ -43,27 +43,6 @@ h1 { font-size: clamp(50px, 6vw, 68px); letter-spacing: -4px; line-height: 1.15;
 .completed-label { margin-left: 4px; }
 .progress-track { height: 2px; background: #282725; margin: 14px 0 13px; overflow: hidden; }
 .progress-track > span { display: block; background: #d8d3c7; height: 100%; transition: width .4s ease; }
-.chain-card { margin: 27px 0 18px; padding: 20px; border: 1px solid #2e2c28; border-radius: 10px; background: linear-gradient(135deg, #151513, #10100f); overflow: hidden; }
-.chain-heading { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
-.chain-caption { color: #89857d; font-size: 11px; margin: 7px 0 0; }
-.chain-streak { display: inline-flex; align-items: center; gap: 6px; color: #e0dacf; font-size: 17px; letter-spacing: -.5px; white-space: nowrap; }
-.chain-streak svg { color: #aaa497; }
-.chain-streak span { color: #817d74; font-size: 10px; letter-spacing: .2px; }
-.chain-links { display: flex; align-items: center; min-height: 47px; margin: 17px 0 10px; color: #777269; }
-.chain-links > span { position: relative; width: 29px; height: 29px; flex: 0 0 auto; border: 1px solid #4d4942; border-radius: 50%; transform: rotate(-35deg); transition: background .35s ease, border-color .35s ease, transform .35s ease; }
-.chain-links > span + span { margin-left: -7px; }
-.chain-links > span.is-linked { border-color: #d8d1c4; background: #d8d1c4; box-shadow: 0 0 0 3px #d8d1c410; animation: link-arrive .48s cubic-bezier(.2,.8,.25,1) both; animation-delay: calc(var(--link-index) * 45ms); }
-.chain-links > svg { margin-left: 8px; }
-.chain-meta { display: flex; justify-content: space-between; gap: 12px; color: #858077; font-size: 10px; letter-spacing: .2px; }
-.chain-meta span:last-child { text-align: right; }
-.chain-goals { display: flex; gap: 6px; margin-top: 17px; padding-top: 14px; border-top: 1px solid #292724; }
-.chain-goals button { min-height: 30px; padding: 5px 8px; border: 1px solid #34312c; border-radius: 99px; color: #8e8980; background: transparent; font-size: 9px; letter-spacing: .15px; transition: color .2s, background .2s, border-color .2s; }
-.chain-goals button:hover { border-color: #777168; color: #dfd8ca; }
-.chain-goals button.is-selected { border-color: #d1cabd; background: #d1cabd; color: #1b1a18; font-weight: 600; }
-.chain-achievement { display: flex; align-items: center; gap: 6px; margin: 15px 0 0; color: #d5cdbc; font-size: 10px; animation: appear .3s ease-out; }
-.chain-complete-today .chain-links > span.is-linked:last-of-type { animation: link-arrive .48s cubic-bezier(.2,.8,.25,1) both, link-pulse 1.5s ease-in-out .45s infinite; }
-@keyframes link-arrive { from { opacity: 0; transform: rotate(-35deg) scale(.45); } to { opacity: 1; transform: rotate(-35deg) scale(1); } }
-@keyframes link-pulse { 50% { box-shadow: 0 0 0 7px #d8d1c400; } }
 .routine-list { list-style: none; padding: 0; margin: 0; }
 .routine-row { display: flex; position: relative; align-items: center; min-height: 76px; border-bottom: 1px solid #242321; transition: background .2s; }
 .routine-row:hover { background: #111110; }
@@ -137,7 +116,6 @@ h1 { font-size: clamp(50px, 6vw, 68px); letter-spacing: -4px; line-height: 1.15;
   h1 { font-size: 55px; letter-spacing: -3.6px; }
   .subtitle { font-size: 15px; }
   .routine-section { margin-top: 37px; }
-  .chain-card { padding: 18px 16px; margin-top: 23px; }
   .routine-row { min-height: 73px; }
   .routine-toggle { min-height: 72px; gap: 17px; }
   .routine-name { font-size: 25px; }

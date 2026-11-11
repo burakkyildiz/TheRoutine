@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import {
-  currentStreak, defaultRoutine, localDateKey, millisecondsUntilMidnight, parseRoutine,
+  defaultRoutine, localDateKey, millisecondsUntilMidnight, parseRoutine,
   resetForDate, type RoutineData,
 } from "../lib/routine.ts";
 
@@ -22,7 +22,7 @@ test("same-day reload preserves completions", () => {
 });
 
 test("next day and several days away reset only completions", () => {
-  const data: RoutineData = { version: 2, date: "2026-11-03", chainTarget: 7, chainHistory: [], items: [
+  const data: RoutineData = { version: 1, date: "2026-11-03", items: [
     { id: "custom-2", name: "read 20 pages", completed: true },
     { id: "default-pray", name: "pray & reflect", completed: false },
   ] };
@@ -35,37 +35,10 @@ test("next day and several days away reset only completions", () => {
 });
 
 test("an intentionally empty routine survives saving, reload, and reset", () => {
-  const empty: RoutineData = { version: 2, date: "2026-11-03", items: [], chainTarget: 7, chainHistory: [] };
+  const empty: RoutineData = { version: 1, date: "2026-11-03", items: [] };
   const loaded = parseRoutine(JSON.stringify(empty));
   assert.ok(loaded);
   assert.deepEqual(resetForDate(loaded, "2026-11-05").items, []);
-});
-
-test("records completed and missed days when the calendar changes", () => {
-  const complete = defaultRoutine("2026-11-03");
-  complete.items.forEach((item) => { item.completed = true; });
-  const next = resetForDate(complete, "2026-11-05");
-  assert.deepEqual(next.chainHistory, [
-    { date: "2026-11-03", completed: true },
-    { date: "2026-11-04", completed: false },
-  ]);
-  assert.equal(currentStreak(next), 0);
-});
-
-test("includes a completed current day in the visible streak", () => {
-  const data = defaultRoutine("2026-11-04");
-  data.chainHistory = [{ date: "2026-11-02", completed: true }, { date: "2026-11-03", completed: true }];
-  data.items.forEach((item) => { item.completed = true; });
-  assert.equal(currentStreak(data), 3);
-});
-
-test("migrates version one routines without losing their checklist", () => {
-  const legacy = { version: 1, date: "2026-11-03", items: [{ id: "read", name: "read", completed: true }] };
-  const migrated = parseRoutine(JSON.stringify(legacy));
-  assert.ok(migrated);
-  assert.equal(migrated.version, 2);
-  assert.equal(migrated.chainTarget, 7);
-  assert.deepEqual(migrated.items, legacy.items);
 });
 
 test("invalid saved data is rejected without throwing", () => {

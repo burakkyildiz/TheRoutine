@@ -38,12 +38,6 @@ While open, the app schedules a check at local midnight and at least every minut
 
 Server rendering and initial hydration use the same loading state. LocalStorage is read only on the client. The date is also formatted on the client, avoiding server/client timezone mismatches.
 
-## Consistency chain
-
-Choose a 7, 14, 30, or 60-day goal, or select **∞** for an open-ended chain. A day adds a link only when every routine is completed. The link appears immediately in the interface; at the next local calendar day, the result is written into the local chain history. Missed days are recorded too, so the app can show the current and best streak without erasing the routine itself.
-
-The first release of this feature is browser-local and does not send notifications. Mobile reminders will be added with the native mobile app.
-
 ## Deploy to Vercel
 
 1. Push this directory to a Git repository.
@@ -57,7 +51,7 @@ Alternatively, run `npx vercel` from this directory, then `npx vercel --prod` wh
 
 - `app/`: page, layout, and responsive styles.
 - `components/`: tracker, routine row, and native accessible dialog.
-- `lib/routine.ts`: data types, validation, calendar logic, and chain history.
+- `lib/routine.ts`: data types, validation, and calendar logic.
 - `lib/routine-store.ts`: browser persistence, reset scheduling, and cross-tab updates.
 - `tests/`: focused regression tests for persistence and reset invariants.
 - `docs/the-routine-prompt.md`: original project brief.
