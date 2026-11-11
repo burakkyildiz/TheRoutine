@@ -27,4 +27,4 @@ Midnight, sleep, malformed storage, write failure, and cross-tab scenarios use c
 
 Reviewed the client storage → validation → mutation → persistence → rendering flow, calendar reset scheduling, native dialog controls, keyboard actions, and React hydration behavior using the security/user-impact and React review skills. No verified findings remain in the reviewed scope. User-entered names render as React text. The application has no authentication, server writes, external API calls, or analytics.
 
-LocalStorage remains browser/device/origin-specific and is not transactional across simultaneous tabs. A last-write-wins limitation is documented in the README. The application is ready for deployment; no Vercel deployment was performed.
+LocalStorage remains browser/device/origin-specific and is not transactional across simultaneous tabs. A last-write-wins limitation is documented in the README. These checks preceded the Vercel release. See [AGENTS.md](../AGENTS.md) for the live URL and deployment record.
