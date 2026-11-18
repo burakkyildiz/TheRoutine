@@ -1,12 +1,20 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Check, MoreHorizontal, Pencil, Trash2 } from "lucide-react";
+import { ArrowDown, ArrowUp, Check, GripVertical, MoreHorizontal, Pencil, Trash2 } from "lucide-react";
 import type { RoutineItem } from "@/lib/routine";
 
-export function RoutineRow({ item, index, onToggle, onEdit, onDelete }: {
+export type DragState = "dragging" | "settling" | "shifting";
+
+export function RoutineRow({ item, index, dragState, offset, rowRef, onPointerDown, onMoveUp, onMoveDown, onToggle, onEdit, onDelete }: {
   item: RoutineItem;
   index: number;
+  dragState?: DragState;
+  offset: number;
+  rowRef: (node: HTMLLIElement | null) => void;
+  onPointerDown: (event: React.PointerEvent<HTMLElement>) => void;
+  onMoveUp?: () => void;
+  onMoveDown?: () => void;
   onToggle: () => void;
   onEdit: () => void;
   onDelete: () => void;
@@ -37,7 +45,14 @@ export function RoutineRow({ item, index, onToggle, onEdit, onDelete }: {
     action();
   }
 
-  return <li className={`routine-row${item.completed ? " is-completed" : ""}`}>
+  const lifted = dragState === "dragging" || dragState === "settling";
+  const transform = lifted ? `translateY(${offset}px)${dragState === "dragging" ? " scale(1.02)" : ""}` : offset ? `translateY(${offset}px)` : undefined;
+
+  return <li ref={rowRef} style={{ transform }}
+    className={`routine-row${item.completed ? " is-completed" : ""}${dragState ? ` is-${dragState}` : ""}${lifted ? " is-lifted" : ""}`}>
+    <button type="button" className="drag-handle" aria-label={`Drag to reorder ${item.name}`} title="Drag to reorder" onPointerDown={onPointerDown}>
+      <GripVertical size={20} aria-hidden="true" />
+    </button>
     <button type="button" role="checkbox" aria-checked={item.completed} aria-label={item.name} className="routine-toggle" onClick={onToggle}>
       <span className="completion-circle" aria-hidden="true"><Check size={17} strokeWidth={2.5} /></span>
       <span className="routine-name">{item.name}</span>
@@ -50,6 +65,8 @@ export function RoutineRow({ item, index, onToggle, onEdit, onDelete }: {
         <MoreHorizontal size={20} />
       </button>
       {menuOpen && <div className="options-popover" id={`options-${item.id}`}>
+        {onMoveUp && <button type="button" onClick={() => run(onMoveUp)}><ArrowUp size={15} aria-hidden="true" />Move up</button>}
+        {onMoveDown && <button type="button" onClick={() => run(onMoveDown)}><ArrowDown size={15} aria-hidden="true" />Move down</button>}
         <button type="button" onClick={() => run(onEdit)}><Pencil size={15} aria-hidden="true" />Edit name</button>
         <button type="button" onClick={() => run(onDelete)}><Trash2 size={15} aria-hidden="true" />Remove</button>
       </div>}

@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import { ArrowDown, ArrowUpRight, Check, HardDrive, Plus, RotateCcw } from "lucide-react";
 import { routineActions, useRoutineStore } from "@/lib/routine-store";
 import { RoutineDialog, type DialogAction } from "./routine-dialog";
-import { RoutineRow } from "./routine-row";
+import { RoutineList } from "./routine-list";
 
 export function RoutineTracker() {
   const snapshot = useRoutineStore();
@@ -42,8 +42,8 @@ export function RoutineTracker() {
         </div>
 
         {!snapshot ? <div className="loading-routines" aria-label="Loading your routine">{Array.from({ length: 6 }, (_, index) => <div className="loading-row" key={index}><span /><span /></div>)}</div> :
-          items.length ? <ul className="routine-list">{items.map((item, index) => <RoutineRow key={item.id} item={item} index={index}
-            onToggle={() => routineActions.toggle(item.id)} onEdit={() => setAction({ type: "edit", item })} onDelete={() => setAction({ type: "delete", item })} />)}</ul> :
+          items.length ? <RoutineList items={items} onToggle={(item) => routineActions.toggle(item.id)} onMove={routineActions.move}
+            onEdit={(item) => setAction({ type: "edit", item })} onDelete={(item) => setAction({ type: "delete", item })} /> :
             <div className="empty-state"><span className="empty-icon"><Plus size={22} strokeWidth={1.4} /></span><h2>A little room to begin.</h2><p>Start with one small thing you want to do every day.</p><ArrowDown size={18} aria-hidden="true" /></div>}
 
         <button ref={addRef} type="button" className="add-routine" onClick={() => setAction({ type: "add" })} disabled={!snapshot}><Plus size={17} strokeWidth={1.6} aria-hidden="true" />add routine<ArrowUpRight className="add-arrow" size={16} aria-hidden="true" /></button>

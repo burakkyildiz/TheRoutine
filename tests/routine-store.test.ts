@@ -144,3 +144,18 @@ test("storage events update an open tab and later edits preserve the other tab's
   assert.equal(data().items[0].completed, true);
   assert.equal(data().items[1].name, "read");
 });
+
+test("move reorders by id, persists, and survives a day change", async (context) => {
+  const { routineActions: actions, storage, data } = await setup(context);
+  const ids = () => data().items.map((item) => item.name);
+  actions.move("default-repeat", 0);
+  assert.deepEqual(ids(), ["repeat", "pray", "train", "eat", "study", "sleep"]);
+  actions.move("default-repeat", 99);
+  assert.deepEqual(ids(), ["pray", "train", "eat", "study", "sleep", "repeat"]);
+  actions.move("default-eat", 1);
+  actions.move("missing", 0);
+  assert.deepEqual(ids(), ["pray", "eat", "train", "study", "sleep", "repeat"]);
+  assert.deepEqual(JSON.parse(storage.getItem(STORAGE_KEY)!).items.map((item: { name: string }) => item.name), ids());
+  context.mock.timers.tick(2000);
+  assert.deepEqual(ids(), ["pray", "eat", "train", "study", "sleep", "repeat"]);
+});

@@ -71,6 +71,15 @@ export function parseRoutine(raw: string): RoutineData | null {
   }
 }
 
+export function moveItem<T>(items: readonly T[], from: number, to: number): T[] {
+  const next = [...items];
+  if (from < 0 || from >= next.length) return next;
+  const target = Math.max(0, Math.min(next.length - 1, to));
+  const [moved] = next.splice(from, 1);
+  next.splice(target, 0, moved);
+  return next;
+}
+
 export function millisecondsUntilMidnight(now = new Date()): number {
   const midnight = new Date(now);
   midnight.setHours(24, 0, 0, 0);

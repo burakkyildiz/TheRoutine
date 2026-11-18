@@ -3,7 +3,7 @@
 import { useSyncExternalStore } from "react";
 import {
   defaultRoutine, localDateKey, MAX_NAME_LENGTH, millisecondsUntilMidnight,
-  parseRoutine, resetForDate, STORAGE_KEY,
+  moveItem, parseRoutine, resetForDate, STORAGE_KEY,
   type RoutineData, type RoutineItem,
 } from "./routine.ts";
 
@@ -130,6 +130,12 @@ export const routineActions = {
   },
   remove(id: string) {
     mutate((items) => items.filter((item) => item.id !== id));
+  },
+  move(id: string, toIndex: number) {
+    mutate((items) => {
+      const from = items.findIndex((item) => item.id === id);
+      return from < 0 ? items : moveItem(items, from, toIndex);
+    });
   },
   retrySave() {
     if (snapshot) save(resetForDate(snapshot.data, localDateKey()));

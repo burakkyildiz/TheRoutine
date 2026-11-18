@@ -46,6 +46,15 @@ h1 { font-size: clamp(50px, 6vw, 68px); letter-spacing: -4px; line-height: 1.15;
 .routine-list { list-style: none; padding: 0; margin: 0; }
 .routine-row { display: flex; position: relative; align-items: center; min-height: 76px; border-bottom: 1px solid #242321; transition: background .2s; }
 .routine-row:hover { background: #111110; }
+.routine-row { touch-action: pan-y; -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; }
+.drag-handle { flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 56px; margin-left: -10px; margin-right: 4px; border: 0; border-radius: 6px; background: transparent; color: #6f6c65; cursor: grab; touch-action: none; }
+.drag-handle:hover, .is-lifted .drag-handle { color: #eeeae3; }
+.is-lifted .drag-handle { cursor: grabbing; }
+.routine-row.is-shifting, .routine-row.is-settling { transition: transform .18s ease, background .2s; }
+.routine-row.is-lifted { z-index: 4; background: #1b1a18; border-radius: 10px; box-shadow: 0 14px 36px #000a, 0 0 0 1px #34322d; cursor: grabbing; }
+.routine-row.is-dragging { transition: box-shadow .2s, background .2s; }
+.routine-list.is-reordering { cursor: grabbing; }
+.routine-list.is-reordering .routine-toggle, .routine-list.is-reordering .options-trigger { pointer-events: none; }
 .routine-toggle { border: 0; background: transparent; padding: 17px 0; display: flex; align-items: center; gap: 20px; text-align: left; color: #e8e4dc; flex: 1; min-width: 0; min-height: 75px; }
 .completion-circle { width: 25px; height: 25px; border: 1px solid #4c4a44; border-radius: 50%; flex: 0 0 auto; display: grid; place-items: center; transition: background .2s, border-color .2s, transform .2s; }
 .completion-circle svg { opacity: 0; transform: scale(.6); transition: opacity .2s, transform .2s; }
